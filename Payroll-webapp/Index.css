@@ -1,0 +1,162 @@
+/* ==========================================================
+   Basic reset — removes default browser spacing so every
+   element starts from the same baseline.
+   ========================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    /* Rich, deep black gradient — same as the original theme */
+    background: linear-gradient(135deg, #050505 0%, #1a1a1a 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: #ffffff;
+}
+
+/* ==========================================================
+   Navigation Bar
+   ========================================================== */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 60px;
+    background: rgba(0, 0, 0, 0.4);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #f5f5f5;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.logo-icon {
+    width: 12px;
+    height: 12px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* ==========================================================
+   Main content area
+   ========================================================== */
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+/* ---------- Home / landing screen ---------- */
+.hero {
+    text-align: center;
+    width: 100%;
+    max-width: 640px;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.hero p {
+    color: #a0a0a0;
+    font-weight: 300;
+    line-height: 1.8;
+    letter-spacing: 0.02em;
+    margin-bottom: 30px;
+}
+
+/* ==========================================================
+   Buttons ("Get Started" — nav pill + larger hero variant)
+   ========================================================== */
+.btn {
+    background-color: #ffffff;
+    color: #000000;
+    border: none;
+    padding: 12px 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #000000;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+}
+
+/* The hero's Get Started button sits inline (not full-width) so it
+   reads as one deliberate call to action, matching the nav button. */
+.btn-hero {
+    padding: 12px 30px;
+}
+
+/* ==========================================================
+   Footer
+   ========================================================== */
+footer {
+    text-align: center;
+    padding: 30px;
+    background: rgba(0, 0, 0, 0.4);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    color: #666666;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+}
+
+footer .footer-links {
+    margin-bottom: 15px;
+}
+
+footer a {
+    color: #888888;
+    text-decoration: none;
+    margin: 0 15px;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #ffffff;
+}
+
+/* ==========================================================
+   Responsive
+   ========================================================== */
+@media (max-width: 560px) {
+    nav {
+        padding: 18px 24px;
+    }
+}

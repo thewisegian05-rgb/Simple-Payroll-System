@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Payroll System — Calculators</title>
+
+    <!-- Importing premium Google Fonts (same as the original theme) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="calculator.css">
+</head>
+<body>
+
+    <!-- ============ NAVIGATION BAR ============ -->
+    <nav>
+        <!-- Logo takes the user back to the real landing page. -->
+        <a href="index.html" class="logo">
+            <div class="logo-icon"></div>
+            Payroll
+        </a>
+        <!-- Already on the app page, so this just resets to the menu. -->
+        <a href="#" class="btn" onclick="showScreen('menu'); return false;">Get Started</a>
+    </nav>
+
+    <!-- ============ MAIN CONTENT ============ -->
+    <main>
+
+        <!-- ---------- CALCULATOR MENU SCREEN ----------
+             Landing point inside the app: five clearly labeled cards,
+             one per calculator, so nothing is hidden behind menus. -->
+        <section id="menu" class="screen active">
+            <div class="intro">
+                <h1>Choose a Calculator</h1>
+                <p>Pick one below. Each one walks you through exactly what to enter.</p>
+            </div>
+
+            <div class="menu-grid">
+                <button class="menu-card" onclick="showScreen('gross')">
+                    <span class="menu-number">01</span>
+                    <span class="menu-title">Gross Pay</span>
+                    <span class="menu-desc">Calculate total earnings from hours, overtime and PTO.</span>
+                </button>
+
+                <button class="menu-card" onclick="showScreen('tax')">
+                    <span class="menu-number">02</span>
+                    <span class="menu-title">Tax Deduction</span>
+                    <span class="menu-desc">Estimate federal, state, Social Security and Medicare tax.</span>
+                </button>
+
+                <button class="menu-card" onclick="showScreen('net')">
+                    <span class="menu-number">03</span>
+                    <span class="menu-title">Net Pay</span>
+                    <span class="menu-desc">Subtract tax deductions from gross pay to find take-home pay.</span>
+                </button>
+
+                <button class="menu-card" onclick="showScreen('hours')">
+                    <span class="menu-number">04</span>
+                    <span class="menu-title">Working Hours</span>
+                    <span class="menu-desc">Turn clock-in and clock-out times into hours worked.</span>
+                </button>
+
+                <button class="menu-card" onclick="showScreen('monthly')">
+                    <span class="menu-number">05</span>
+                    <span class="menu-title">Monthly Pay</span>
+                    <span class="menu-desc">Project a full month's pay from a daily schedule.</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ---------- 1) GROSS PAY SCREEN ---------- -->
+        <section id="gross" class="screen">
+            <div class="container">
+                <button class="back-btn" onclick="showScreen('menu')">&larr; Back to menu</button>
+                <h2>Gross Pay</h2>
+                <p class="screen-desc">Enter your hours and rate. Overtime hours are paid at 1.25&times; your hourly rate.</p>
+
+                <div class="field">
+                    <label for="g-regular">Regular hours worked</label>
+                    <input type="number" id="g-regular" placeholder="e.g. 40" min="0" step="0.01">
+                </div>
+
+                <div class="field">
+                    <label for="g-rate">Hourly rate ($)</label>
+                    <input type="number" id="g-rate" placeholder="e.g. 20" min="0" step="0.01">
+                </div>
+
+                <div class="field">
+                    <label for="g-ot">Overtime hours <span class="optional">(optional)</span></label>
+                    <input type="number" id="g-ot" placeholder="e.g. 5" min="0" step="0.01">
+                </div>
+
+                <div class="field">
+                    <label for="g-pto">PTO hours <span class="optional">(optional)</span></label>
+                    <input type="number" id="g-pto" placeholder="e.g. 8" min="0" step="0.01">
+                </div>
+
+                <div class="field">
+                    <label for="g-nontax">Nontaxable income ($) <span class="optional">(optional)</span></label>
+                    <input type="number" id="g-nontax" placeholder="e.g. 50" min="0" step="0.01">
+                </div>
+
+                <button class="btn btn-solid" onclick="calcGross()">Calculate Gross Pay</button>
+
+                <div id="g-error"></div>
+                <div id="g-result"></div>
+            </div>
+        </section>
+
+        <!-- ---------- 2) TAX DEDUCTION SCREEN ---------- -->
+        <section id="tax" class="screen">
+            <div class="container">
+                <button class="back-btn" onclick="showScreen('menu')">&larr; Back to menu</button>
+                <h2>Tax Deduction</h2>
+                <p class="screen-desc">Enter your gross pay and state tax rate to estimate all deductions.</p>
+
+                <div class="field">
+                    <label for="t-gross">Gross pay ($)</label>
+                    <input type="number" id="t-gross" placeholder="e.g. 1000" min="0" step="0.01">
+                </div>
+
+                <div class="field">
+                    <label for="t-state">State tax rate <span class="optional">(as a decimal, e.g. 0.05 for 5%)</span></label>
+                    <input type="number" id="t-state" placeholder="e.g. 0.05" min="0" step="0.001">
+                </div>
+
+                <button class="btn btn-solid" onclick="calcTax()">Calculate Tax Deduction</button>
+
+                <div id="t-error"></div>
+                <div id="t-result"></div>
+            </div>
+        </section>
+
+        <!-- ---------- 3) NET PAY SCREEN ---------- -->
+        <section id="net" class="screen">
+            <div class="container">
+                <button class="back-btn" onclick="showScreen('menu')">&larr; Back to menu</button>
+                <h2>Net Pay</h2>
+                <p class="screen-desc">Enter your gross pay and total tax deduction to see your take-home pay.</p>
+
+                <div class="field">
+                    <label for="n-gross">Gross pay ($)</label>
+                    <input type="number" id="n-gross" placeholder="e.g. 1000" min="0" step="0.01">
+                </div>
+
+                <div class="field">
+                    <label for="n-tax">Total tax deduction ($)</label>
+                    <input type="number" id="n-tax" placeholder="e.g. 235" min="0" step="0.01">
+                </div>
+
+                <button class="btn btn-solid" onclick="calcNet()">Calculate Net Pay</button>
+
+                <div id="n-error"></div>
+                <div id="n-result"></div>
+            </div>
+        </section>
+
+        <!-- ---------- 4) WORKING HOURS SCREEN ---------- -->
+        <section id="hours" class="screen">
+            <div class="container">
+                <button class="back-btn" onclick="showScreen('menu')">&larr; Back to menu</button>
+                <h2>Working Hours</h2>
+                <p class="screen-desc">Enter the time you clocked in and out to see hours worked, late entry and overtime.</p>
+
+                <div class="field">
+                    <label for="h-enter">Enter time</label>
+                    <input type="time" id="h-enter">
+                </div>
+
+                <div class="field">
+                    <label for="h-exit">Exit time</label>
+                    <input type="time" id="h-exit">
+                </div>
+
+                <button class="btn btn-solid" onclick="calcHours()">Calculate Working Hours</button>
+
+                <div id="h-error"></div>
+                <div id="h-result"></div>
+            </div>
+        </section>
+
+        <!-- ---------- 5) MONTHLY PAY SCREEN ---------- -->
+        <section id="monthly" class="screen">
+            <div class="container">
+                <button class="back-btn" onclick="showScreen('menu')">&larr; Back to menu</button>
+                <h2>Monthly Pay</h2>
+                <p class="screen-desc">Enter a typical work day and the number of days worked to project a full month's pay. Entering after 10 AM applies a 10% late penalty, and a flat 12% tax is applied to daily pay.</p>
+
+                <div class="field">
+                    <label for="m-enter">Enter time</label>
+                    <input type="time" id="m-enter">
+                </div>
+
+                <div class="field">
+                    <label for="m-exit">Exit time</label>
+                    <input type="time" id="m-exit">
+                </div>
+
+                <div class="field">
+                    <label for="m-rate">Hourly rate ($)</label>
+                    <input type="number" id="m-rate" placeholder="e.g. 20" min="0" step="0.01">
+                </div>
+
+                <div class="field">
+                    <label for="m-days">Days worked in the month</label>
+                    <input type="number" id="m-days" placeholder="e.g. 22" min="0" step="1">
+                </div>
+
+                <button class="btn btn-solid" onclick="calcMonthly()">Calculate Monthly Pay</button>
+
+                <div id="m-error"></div>
+                <div id="m-result"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Support</a>
+        </div>
+        <p>&copy; 2024 Simple Payroll System. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

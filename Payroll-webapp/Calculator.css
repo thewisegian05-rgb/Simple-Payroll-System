@@ -63,9 +63,9 @@ main {
     padding: 40px 20px;
 }
 
-/* Every calculator page and the home menu is a ".screen".
-   Only the one with the "active" class is visible — see
-   showScreen() in script.js for how that's toggled. */
+/* The menu and every calculator page is a ".screen". Only the one
+   with the "active" class is visible — see showScreen() in
+   script.js for how that's toggled. */
 .screen {
     display: none;
     width: 100%;
@@ -80,33 +80,6 @@ main {
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(6px); }
     to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ---------- Home / landing screen ---------- */
-.hero {
-    text-align: center;
-}
-
-.hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 3rem;
-    font-weight: 500;
-    margin-bottom: 20px;
-    line-height: 1.2;
-}
-
-.hero p {
-    color: #a0a0a0;
-    font-weight: 300;
-    line-height: 1.8;
-    letter-spacing: 0.02em;
-    margin-bottom: 30px;
-}
-
-/* The hero's Get Started button sits inline (not full-width) so it
-   reads as one deliberate call to action, matching the nav button. */
-.btn-hero {
-    padding: 12px 30px;
 }
 
 /* ---------- Calculator menu ---------- */
@@ -279,8 +252,8 @@ main {
 }
 
 /* ==========================================================
-   Buttons (shared "Get Started" style + solid full-width variant
-   used inside the calculator forms)
+   Buttons (shared "Get Started" pill style + solid full-width
+   variant used inside the calculator forms)
    ========================================================== */
 .btn {
     background-color: #ffffff;
