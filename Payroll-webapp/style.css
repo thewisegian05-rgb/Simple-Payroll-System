@@ -1,0 +1,396 @@
+/* ==========================================================
+   Basic reset — removes default browser spacing so every
+   element starts from the same baseline.
+   ========================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    /* Rich, deep black gradient — same as the original theme */
+    background: linear-gradient(135deg, #050505 0%, #1a1a1a 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: #ffffff;
+}
+
+/* ==========================================================
+   Navigation Bar
+   ========================================================== */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 60px;
+    background: rgba(0, 0, 0, 0.4);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #f5f5f5;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.logo-icon {
+    width: 12px;
+    height: 12px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* ==========================================================
+   Main content area
+   ========================================================== */
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+/* Every calculator page and the home menu is a ".screen".
+   Only the one with the "active" class is visible — see
+   showScreen() in script.js for how that's toggled. */
+.screen {
+    display: none;
+    width: 100%;
+    max-width: 640px;
+    animation: fadeIn 0.3s ease;
+}
+
+.screen.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Home / landing screen ---------- */
+.hero {
+    text-align: center;
+}
+
+.hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.hero p {
+    color: #a0a0a0;
+    font-weight: 300;
+    line-height: 1.8;
+    letter-spacing: 0.02em;
+    margin-bottom: 30px;
+}
+
+/* The hero's Get Started button sits inline (not full-width) so it
+   reads as one deliberate call to action, matching the nav button. */
+.btn-hero {
+    padding: 12px 30px;
+}
+
+/* ---------- Calculator menu ---------- */
+.intro {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.intro h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 500;
+    margin-bottom: 16px;
+    line-height: 1.2;
+}
+
+.intro p {
+    color: #a0a0a0;
+    font-weight: 300;
+    line-height: 1.8;
+    letter-spacing: 0.02em;
+}
+
+/* Grid of five clickable calculator cards */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+/* Each "card" is really a <button> so it's keyboard-accessible
+   (focusable and pressable with Enter/Space) out of the box. */
+.menu-card {
+    text-align: left;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    padding: 24px 22px;
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: all 0.25s ease;
+}
+
+.menu-card:hover,
+.menu-card:focus-visible {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    outline: none;
+}
+
+.menu-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.9rem;
+    color: #888888;
+    letter-spacing: 0.1em;
+}
+
+.menu-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+.menu-desc {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: #a0a0a0;
+    line-height: 1.6;
+}
+
+/* Last card spans both columns so the 5-card grid looks balanced */
+.menu-card:nth-child(5) {
+    grid-column: 1 / -1;
+}
+
+/* ---------- Individual calculator screens ---------- */
+.container {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 50px 45px;
+    border-radius: 4px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: #a0a0a0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    margin-bottom: 24px;
+    padding: 0;
+    transition: color 0.2s ease;
+}
+
+.back-btn:hover {
+    color: #ffffff;
+}
+
+.container h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.1rem;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+.screen-desc {
+    color: #a0a0a0;
+    font-weight: 300;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+/* Label + input pair. Clear labels are key for first-time users
+   so they always know what value is expected. */
+.field {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.field label {
+    display: block;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #cccccc;
+    margin-bottom: 8px;
+}
+
+.field .optional {
+    text-transform: none;
+    letter-spacing: 0;
+    color: #666666;
+    font-size: 0.75rem;
+}
+
+.field input {
+    width: 100%;
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 2px;
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+}
+
+.field input::placeholder {
+    color: #666666;
+}
+
+.field input:focus {
+    outline: none;
+    border-color: #ffffff;
+    background: rgba(255, 255, 255, 0.07);
+}
+
+/* Chrome's time-picker indicator is invisible on dark backgrounds
+   by default, so this inverts it to white. */
+.field input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
+/* ==========================================================
+   Buttons (shared "Get Started" style + solid full-width variant
+   used inside the calculator forms)
+   ========================================================== */
+.btn {
+    background-color: #ffffff;
+    color: #000000;
+    border: none;
+    padding: 12px 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #000000;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+}
+
+.btn-solid {
+    width: 100%;
+    padding: 14px 30px;
+    margin-top: 10px;
+}
+
+/* ==========================================================
+   Result & error messages (filled in dynamically by script.js)
+   ========================================================== */
+.result {
+    margin-top: 24px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    text-align: left;
+    font-size: 0.9rem;
+    line-height: 2;
+    color: #cccccc;
+}
+
+.result .total {
+    margin-top: 8px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+
+.error {
+    margin-top: 20px;
+    padding: 14px 16px;
+    background: rgba(255, 80, 80, 0.08);
+    border: 1px solid rgba(255, 80, 80, 0.4);
+    border-radius: 2px;
+    color: #ff8080;
+    font-size: 0.85rem;
+    text-align: left;
+}
+
+/* ==========================================================
+   Footer
+   ========================================================== */
+footer {
+    text-align: center;
+    padding: 30px;
+    background: rgba(0, 0, 0, 0.4);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    color: #666666;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+}
+
+footer .footer-links {
+    margin-bottom: 15px;
+}
+
+footer a {
+    color: #888888;
+    text-decoration: none;
+    margin: 0 15px;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #ffffff;
+}
+
+/* ==========================================================
+   Responsive: stack the menu cards on narrow screens
+   ========================================================== */
+@media (max-width: 560px) {
+    nav {
+        padding: 18px 24px;
+    }
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+    .menu-card:nth-child(5) {
+        grid-column: auto;
+    }
+    .container {
+        padding: 36px 26px;
+    }
+    .intro h1 {
+        font-size: 2.2rem;
+    }
+}
