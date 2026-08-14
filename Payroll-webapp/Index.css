@@ -1,7 +1,3 @@
-/* ==========================================================
-   Basic reset — removes default browser spacing so every
-   element starts from the same baseline.
-   ========================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -10,7 +6,6 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
-    /* Rich, deep black gradient — same as the original theme */
     background: linear-gradient(135deg, #050505 0%, #1a1a1a 100%);
     min-height: 100vh;
     display: flex;
@@ -18,9 +13,7 @@ body {
     color: #ffffff;
 }
 
-/* ==========================================================
-   Navigation Bar
-   ========================================================== */
+/* Navigation Bar */
 nav {
     display: flex;
     justify-content: space-between;
@@ -52,9 +45,7 @@ nav {
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
-/* ==========================================================
-   Main content area
-   ========================================================== */
+/* Main content area */
 main {
     flex: 1;
     display: flex;
@@ -63,7 +54,6 @@ main {
     padding: 40px 20px;
 }
 
-/* ---------- Home / landing screen ---------- */
 .hero {
     text-align: center;
     width: 100%;
@@ -92,9 +82,7 @@ main {
     margin-bottom: 30px;
 }
 
-/* ==========================================================
-   Buttons ("Get Started" — nav pill + larger hero variant)
-   ========================================================== */
+/* Buttons */
 .btn {
     background-color: #ffffff;
     color: #000000;
@@ -118,15 +106,11 @@ main {
     border: 1px solid #ffffff;
 }
 
-/* The hero's Get Started button sits inline (not full-width) so it
-   reads as one deliberate call to action, matching the nav button. */
 .btn-hero {
     padding: 12px 30px;
 }
 
-/* ==========================================================
-   Footer
-   ========================================================== */
+/* Footer */
 footer {
     text-align: center;
     padding: 30px;
@@ -152,11 +136,46 @@ footer a:hover {
     color: #ffffff;
 }
 
-/* ==========================================================
-   Responsive
-   ========================================================== */
+/* Responsive */
 @media (max-width: 560px) {
     nav {
         padding: 18px 24px;
     }
+}
+/* Excel Upload Box */
+.upload-box {
+    margin-top: 30px;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    display: inline-block;
+    text-align: center;
+}
+
+.file-input {
+    margin-bottom: 15px;
+    color: #a0a0a0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+}
+
+/* Make the file picker text white on dark mode */
+.file-input::file-selector-button {
+    background: #ffffff;
+    color: #000;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 2px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.file-status {
+    font-size: 0.85rem;
+    color: #666666;
+    margin-bottom: 20px;
+    line-height: 1.6;
 }
